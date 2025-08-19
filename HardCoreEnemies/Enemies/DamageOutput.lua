@@ -1,3 +1,4 @@
---local BitersDamage = require("__HardCoreEnemies__.Functions.Function")
+local Folder = require("Functions.Function")
 
---BitersDamage()
+Folder.BitersDamage()
+Folder.PentapodDamage()

@@ -1,4 +1,6 @@
-require ("__HardCoreEnemies__.Functions.Shorthands")
+require ("Functions.Shorthands")
+--data.raw["unit"].attack_parameters.make_unit_melee_ammo_type(100)
+
 local make_unit_melee_ammo_type = function(damage_value)
 return
 	{
@@ -9,7 +11,7 @@ return
 				type = "instant",
 				target_effects = {
 					type = "damage",
-					damage = { amount = damage_value , type = "physical"}
+					damage = { amount = damage_value * SS["DamageMultiplier"].value , type = "physical"}
 				}
 			}
 		}
@@ -17,14 +19,12 @@ return
 end
 
 local BitersDamage = function(damage_value)
-    for k, v in pairs(data.raw.unit) do
-        if string.find(k, "-biter") == true then
-            v.attack_parameters.ammo_type = make_unit_melee_ammo_type(damage_value) * SS["DamageMultiplier"].value
+    for k, _ in pairs(data.raw.unit) do
+        if string.match(k, "-biter") == true then
+            data.raw.unit[k].attack_parameters.ammo_type = make_unit_melee_ammo_type(damage_value)
         end
     end
 end
-
-return BitersDamage
 
 
 local spitter_behemoth_attack_parameters = function(damage)
@@ -37,7 +37,7 @@ local spitter_behemoth_attack_parameters = function(damage)
 				type = "instant",
 				target_effects = {
 					type = "damage",
-					damage = { amount = damage , type = "acid"}
+					damage = { amount = damage * SS["DamageMultiplier"].value , type = "acid"}
 				}
 			}
 		}
@@ -45,11 +45,11 @@ local spitter_behemoth_attack_parameters = function(damage)
 end
 
 local PentapodDamage = function(damage)
-	for k, v in pairs(data.raw["spider-unit"]) do
-		if string.find(k, "-pentapod") == true then
-			v.attack_parameters = spitter_behemoth_attack_parameters({damage_modifier = (damage)}) * SS["DamageMultiplier"].value
+	for k, _ in pairs(data.raw["spider-unit"]) do
+		if string.match(k, "-pentapod") == true then
+			data.raw["spider-unit"][k].attack_parameters = spitter_behemoth_attack_parameters(damage)
 		end
 	end
 end
 
-return PentapodDamage
+return {BitersDamage = BitersDamage, PentapodDamage = PentapodDamage}
