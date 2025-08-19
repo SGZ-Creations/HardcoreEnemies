@@ -1,3 +1,3 @@
 require("Enemies.DamageOutput")
 require("Enemies.ObjectResitances")
---require("Functions.Function")
+require("__HardCoreEnemies__.Functions.Function")

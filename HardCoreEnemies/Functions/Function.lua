@@ -1,4 +1,4 @@
-require ("HardCoreEnemies.Functions.Shorthands")
+require ("__HardCoreEnemies__.Functions.Shorthands")
 local make_unit_melee_ammo_type = function(damage_value)
 return
 	{
@@ -24,13 +24,30 @@ local BitersDamage = function(damage_value)
     end
 end
 
-return BitersDamage end
+return BitersDamage
 
+
+local spitter_behemoth_attack_parameters = function(damage)
+	return
+	{
+		target_type = "entity",
+		action = {
+			type = "direct",
+			action_delivery = {
+				type = "instant",
+				target_effects = {
+					type = "damage",
+					damage = { amount = damage , type = "acid"}
+				}
+			}
+		}
+	}
+end
 
 local PentapodDamage = function(damage)
-	for k, v in pairs(data.raw.spider-unit) do
+	for k, v in pairs(data.raw["spider-unit"]) do
 		if string.find(k, "-pentapod") == true then
-			v.attack_parameters.spitter_behemoth_attack_parameters.damage_modifier = (damage) * SS["DamageMultiplier"].value
+			v.attack_parameters = spitter_behemoth_attack_parameters({damage_modifier = (damage)}) * SS["DamageMultiplier"].value
 		end
 	end
 end
