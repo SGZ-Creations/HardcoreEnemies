@@ -10,7 +10,7 @@ data.extend({
         type = "double-setting",
         setting_type = "startup",
         name = "DamageMultiplier",
-        default_value = 1.5,
+        default_value = 5.0,
         minimum_value = 1.0
     },
     {
