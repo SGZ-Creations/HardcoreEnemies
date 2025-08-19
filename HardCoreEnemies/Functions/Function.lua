@@ -1,6 +1,6 @@
 require ("Functions.Shorthands")
 --data.raw["unit"].attack_parameters.make_unit_melee_ammo_type(100)
-
+--https://github.com/wube/factorio-data/blob/master/space-age/prototypes/entity/enemies.lua#L1025
 local make_unit_melee_ammo_type = function(damage_value)
 return
 	{
