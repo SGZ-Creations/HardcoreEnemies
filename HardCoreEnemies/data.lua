@@ -1,2 +1,2 @@
-require("__HardCoreEnemies__.Enemie.DamageOutput")
-require("__HardCoreEnemies__.Enemie.ObjectResitances")
+require("__HardCoreEnemies__.Enemies.DamageOutput")
+require("__HardCoreEnemies__.Enemies.ObjectResitances")

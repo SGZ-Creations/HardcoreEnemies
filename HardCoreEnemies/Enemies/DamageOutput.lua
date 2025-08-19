@@ -1,4 +1,5 @@
-local make_unit_melee_ammo_type = function(damage_value)
+local sounds = require ("prototypes.entity.sounds")
+local make_unit_melee_ammo_type = function(damage_value) end
 data.raw.unit["small-biter"].attack_parameters =  {
 	type = "projectile",
 	range = 0.5,
@@ -10,4 +11,3 @@ data.raw.unit["small-biter"].attack_parameters =  {
 	animation = biterattackanimation(small_biter_scale, small_biter_tint1, small_biter_tint2),
 	range_mode = "bounding-box-to-bounding-box"
     }
---https://github.com/wube/factorio-data/blob/master/base/prototypes/entity/enemies.lua
