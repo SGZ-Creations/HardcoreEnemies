@@ -1,16 +1,33 @@
 --local sounds = require ("prototypes.entity.sounds")
 local SS = settings.startup
 local make_unit_melee_ammo_type = function(damage_value)
-return
+	return
 	{
 		target_type = "entity",
 		action = {
 			type = "direct",
-			action_delivery ={
+			action_delivery = {
 				type = "instant",
 				target_effects = {
 					type = "damage",
-					damage = { amount = damage_value , type = "physical"}
+					damage = { amount = damage_value, type = "physical" }
+				}
+			}
+		}
+	}
+end
+
+local apply_modifier = function(damage, type)
+	return
+	{
+		target_type = "entity",
+		action = {
+			type = "direct",
+			action_delivery = {
+				type = "instant",
+				target_effects = {
+					type = "damage",
+					damage = { amount = damage * SS["DamageMultiplier"].value, type = type }
 				}
 			}
 		}
@@ -19,11 +36,9 @@ end
 
 --data.raw.unit["small-biter"].attack_parameters.ammo_type = make_unit_melee_ammo_type() * SS[""]
 
-local BitersDamage = require("")
-function (damage_value )
-	
-end
--- local Spitter 
+local BitersDamage = require("Functions.func")
+
+-- local Spitter
 
 
 -- for k, v in pairs(data.raw.unit) do
