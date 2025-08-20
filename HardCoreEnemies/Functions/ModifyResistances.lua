@@ -110,19 +110,19 @@ local UpdateResistanceTable = function(prot_name, entity_name)
     if not resist_tbl then return end
 
     -- loop through the resistances table
-    for k, _ in pairs(resist_tbl) do
+    for i, _ in pairs(resist_tbl) do
         -- check if .decrease exists for the resitance table, if it doesn't do nothing
-        if resist_tbl[k].decrease then
-            local old_decrease = resist_tbl[k].decrease -- for logging, TODO: remove me
+        if resist_tbl[i].decrease then
+            local old_decrease = resist_tbl[i].decrease -- for logging, TODO: remove me
 
             -- begin stupid fucking formatter
-            data.raw[prot_name][entity_name].resistances[k].decrease = resist_tbl[k].decrease *
+            data.raw[prot_name][entity_name].resistances[i].decrease = resist_tbl[i].decrease *
                 settings.startup["ResistanceMultiplierSetting"]
                 .value -- modify the existing decrease value
             -- end stupid fucking formatter
 
             log("\t\t\\Beginning Decrease: " .. tostring(old_decrease))                                          -- For debugging TODO: remove me
-            log("\t\t\\Ending Decrease: " .. tostring(data.raw[prot_name][entity_name].resistances[k].decrease)) -- For debugging TODO: remove me
+            log("\t\t\\Ending Decrease: " .. tostring(data.raw[prot_name][entity_name].resistances[i].decrease)) -- For debugging TODO: remove me
         end
     end
 end
