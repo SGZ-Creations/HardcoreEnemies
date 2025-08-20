@@ -111,13 +111,18 @@ local UpdateResistanceTable = function(prot_name, entity_name)
 
     -- loop through the resistances table
     for k, _ in pairs(resist_tbl) do
+        -- check if .decrease exists for the resitance table, if it doesn't do nothing
         if resist_tbl[k].decrease then
-            local old_decrease = resist_tbl[k].decrease
+            local old_decrease = resist_tbl[k].decrease -- for logging, TODO: remove me
 
+            -- begin stupid fucking formatter
             data.raw[prot_name][entity_name].resistances[k].decrease = resist_tbl[k].decrease *
-                settings.startup["ResistanceMultiplierSetting"].value
-            log("\t\t\\Beginning Decrease: " .. tostring(old_decrease))
-            log("\t\t\\Ending Decrease: " .. tostring(data.raw[prot_name][entity_name].resistances[k].decrease))
+                settings.startup["ResistanceMultiplierSetting"]
+                .value -- modify the existing decrease value
+            -- end stupid fucking formatter
+
+            log("\t\t\\Beginning Decrease: " .. tostring(old_decrease))                                          -- For debugging TODO: remove me
+            log("\t\t\\Ending Decrease: " .. tostring(data.raw[prot_name][entity_name].resistances[k].decrease)) -- For debugging TODO: remove me
         end
     end
 end
@@ -130,10 +135,10 @@ local ModifyResistances = function()
             log(tbl[1])
             for k, _ in pairs(data.raw[tbl[1]]) do
                 data.raw[tbl[1]][k].hide_resistances = false
-                log("\\BLOCK START")
-                log("\t\\" .. k)
+                log("\\BLOCK START") -- For debugging TODO: remove me
+                log("\t\\" .. k)     -- For debugging TODO: remove me
                 UpdateResistanceTable(tbl[1], k)
-                log("\\END BLOCK")
+                log("\\END BLOCK")   -- For debugging TODO: remove me
             end
         end
     end
