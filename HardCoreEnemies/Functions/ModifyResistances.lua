@@ -1,5 +1,7 @@
 -- Rify, 22:14 8.18.2025
 
+require("Functions.Shorthands")
+
 --[[
     items are stored as their type and if they're a combat building
     true for combat building, false for regular building
@@ -104,7 +106,7 @@ if mods['space-age'] then -- add capability with space age shit
     table.insert(building_types, { "plant", false })
 end
 
-local UpdateResistanceTable = function(prot_name, entity_name)
+local UpdateResistanceTable = function(prot_name, entity_name, setting_value)
     -- do nothing if the resistance table doesn't exist
     local resist_tbl = data.raw[prot_name][entity_name].resistances
     if not resist_tbl then return end
@@ -113,33 +115,31 @@ local UpdateResistanceTable = function(prot_name, entity_name)
     for i, _ in pairs(resist_tbl) do
         -- check if .decrease exists for the resitance table, if it doesn't do nothing
         if resist_tbl[i].decrease then
-            local old_decrease = resist_tbl[i].decrease -- for logging, TODO: remove me
-
-            -- begin stupid fucking formatter
-            data.raw[prot_name][entity_name].resistances[i].decrease = resist_tbl[i].decrease *
-                settings.startup["ResistanceMultiplierSetting"]
-                .value -- modify the existing decrease value
-            -- end stupid fucking formatter
-
-            log("\t\t\\Beginning Decrease: " .. tostring(old_decrease))                                          -- For debugging TODO: remove me
-            log("\t\t\\Ending Decrease: " .. tostring(data.raw[prot_name][entity_name].resistances[i].decrease)) -- For debugging TODO: remove me
+            -- modify the existing decrease value
+            log("\t\\Old Decrease: " .. tostring(resist_tbl[i].decrease))
+            data.raw[prot_name][entity_name].resistances[i].decrease = resist_tbl[i].decrease * setting_value
+            log("\t\\New Decrease: " .. tostring(data.raw[prot_name][entity_name].resistances[i].decrease))
         end
     end
 end
 
 local ModifyResistances = function()
     for _, tbl in pairs(building_types) do
-        if tbl[2] then -- combat building
-            -- TODO: prototype later
-        else
-            log(tbl[1])
-            for k, _ in pairs(data.raw[tbl[1]]) do
-                data.raw[tbl[1]][k].hide_resistances = false
-                log("\\BLOCK START") -- For debugging TODO: remove me
-                log("\t\\" .. k)     -- For debugging TODO: remove me
-                UpdateResistanceTable(tbl[1], k)
-                log("\\END BLOCK")   -- For debugging TODO: remove me
-            end
+        local prototype_name = tbl[1]
+        local is_combat_building = tbl[2]
+        local setting_name = "ResistanceMultiplier"
+        if is_combat_building then
+            setting_name = "CombatResistanceMultiplier"
+        end
+        local setting_value = settings.startup[setting_name].value
+
+        for k, _ in pairs(data.raw[prototype_name]) do
+            data.raw[prototype_name][k].hide_resistances = false
+
+            log("\\BLOCK START") -- For debugging TODO: remove me
+            log("\t\\" .. k)     -- For debugging TODO: remove me
+            UpdateResistanceTable(prototype_name, k, setting_value)
+            log("\\END BLOCK")   -- For debugging TODO: remove me
         end
     end
 end
