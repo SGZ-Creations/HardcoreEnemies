@@ -1,4 +1,4 @@
-local Folder = require("Functions.Damages")
+--local Folder = require("Functions.Damages")
 
-Folder.BitersDamage()
-Folder.PentapodDamage()
+--Folder.BitersDamage()
+--Folder.PentapodDamage()

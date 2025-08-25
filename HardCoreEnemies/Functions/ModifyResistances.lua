@@ -117,7 +117,7 @@ local UpdateResistanceTable = function(prot_name, entity_name)
 
             -- begin stupid fucking formatter
             data.raw[prot_name][entity_name].resistances[i].decrease = resist_tbl[i].decrease *
-                settings.startup["ResistanceMultiplierSetting"]
+                settings.startup["ResistanceMultiplier"]
                 .value -- modify the existing decrease value
             -- end stupid fucking formatter
 
