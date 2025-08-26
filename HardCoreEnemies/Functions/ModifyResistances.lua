@@ -121,8 +121,8 @@ local UpdateResistanceTable = function(prot_name, entity_name)
                 .value -- modify the existing decrease value
             -- end stupid fucking formatter
 
-            log("\t\t\\Beginning Decrease: " .. tostring(old_decrease))                                          -- For debugging TODO: remove me
-            log("\t\t\\Ending Decrease: " .. tostring(data.raw[prot_name][entity_name].resistances[i].decrease)) -- For debugging TODO: remove me
+            --log("\t\t\\Beginning Decrease: " .. tostring(old_decrease))                                          -- For debugging TODO: remove me
+            --log("\t\t\\Ending Decrease: " .. tostring(data.raw[prot_name][entity_name].resistances[i].decrease)) -- For debugging TODO: remove me
         end
     end
 end
@@ -132,13 +132,13 @@ local ModifyResistances = function()
         if tbl[2] then -- combat building
             -- TODO: prototype later
         else
-            log(tbl[1])
+            --log(tbl[1])
             for k, _ in pairs(data.raw[tbl[1]]) do
                 data.raw[tbl[1]][k].hide_resistances = false
-                log("\\BLOCK START") -- For debugging TODO: remove me
-                log("\t\\" .. k)     -- For debugging TODO: remove me
+                --log("\\BLOCK START") -- For debugging TODO: remove me
+                --log("\t\\" .. k)     -- For debugging TODO: remove me
                 UpdateResistanceTable(tbl[1], k)
-                log("\\END BLOCK")   -- For debugging TODO: remove me
+                --log("\\END BLOCK")   -- For debugging TODO: remove me
             end
         end
     end

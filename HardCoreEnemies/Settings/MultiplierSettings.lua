@@ -10,14 +10,14 @@ data.extend({
         type = "double-setting",
         setting_type = "startup",
         name = "DamageMultiplier",
-        default_value = 5.0,
+        default_value = 100.0,
         minimum_value = 1.0
     },
     {
         type = "double-setting",
         setting_type = "startup",
         name = "ResistanceMultiplier",
-        default_value = 5.0,
+        default_value = 50.0,
         minimum_value = 1.0
     }
 })

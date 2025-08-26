@@ -1,4 +1,5 @@
-lib = lib or {}
+local lib = {}
+require "util"
 ---Recursively applies a function to all non-table values in a table.
 ---@param root_table table
 ---@param func function Receives (current_path, key, value) as parameters
@@ -28,3 +29,5 @@ function lib._apply_to_table_with_path(root_table, func, current_path)
         end
     end
 end
+
+return lib
