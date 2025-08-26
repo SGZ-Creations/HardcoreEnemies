@@ -115,18 +115,18 @@ local UpdateResistanceTable = function(prot_name, entity_name)
 
     -- loop through the resistances table
     for i, _ in pairs(resist_tbl) do
-        -- check if .decrease exists for the resitance table, if it doesn't do nothing
+        -- check if .decrease exists for the resitance table, if it doesn't d̶o̶ n̶o̶t̶h̶i̶n̶g̶ Add value 25 or 100 to resistances. for combat 100 for regular 25 for all damage types See List In bottom of file
         if resist_tbl[i].decrease then
             local old_decrease = resist_tbl[i].decrease -- for logging, TODO: remove me
 
             -- begin stupid fucking formatter
             data.raw[prot_name][entity_name].resistances[i].decrease = resist_tbl[i].decrease * --Was told this does not work
                 settings.startup["ResistanceMultiplier"]
-                .value -- modify the existing decrease value
+                    .value -- modify the existing decrease value
             -- end stupid fucking formatter
 
-            --log("\t\t\\Beginning Decrease: " .. tostring(old_decrease))                                          -- For debugging TODO: remove me
-            --log("\t\t\\Ending Decrease: " .. tostring(data.raw[prot_name][entity_name].resistances[i].decrease)) -- For debugging TODO: remove me
+            -- settings.startup["old_decrease"].value then log("\t\t\\Beginning Decrease: " .. tostring(old_decrease)) end                                       -- For debugging TODO: remove me
+            -- settings.startup["decrease"].value then log("\t\t\\Ending Decrease: " .. tostring(data.raw[prot_name][entity_name].resistances[i].decrease)) end -- For debugging TODO: remove me
         end
     end
 end
@@ -149,3 +149,22 @@ local ModifyResistances = function()
 end
 
 return ModifyResistances
+
+
+--[[
+the List
+{
+    "physical", 
+    "acid",
+    "explosion",
+    type = "fire",
+    type = "electric",
+    type = "impact",
+    type = "laser",
+    type = "poison",
+
+    if mods["bobenemies"] then
+        type = "bob-plasma",
+        type = "bob-pierce",
+    end
+]]
