@@ -108,7 +108,7 @@ if mods['space-age'] then -- add capability with space age shit
     table.insert(building_types, { "plant", false })
 end
 
-local UpdateResistanceTable = function(prot_name, entity_name)
+local UpdateResistanceTable = function(prot_name, entity_name, setting_value)
     -- do nothing if the resistance table doesn't exist
     local resist_tbl = data.raw[prot_name][entity_name].resistances
     if not resist_tbl then return end
@@ -127,12 +127,14 @@ local UpdateResistanceTable = function(prot_name, entity_name)
 
             -- settings.startup["old_decrease"].value then log("\t\t\\Beginning Decrease: " .. tostring(old_decrease)) end                                       -- For debugging TODO: remove me
             -- settings.startup["decrease"].value then log("\t\t\\Ending Decrease: " .. tostring(data.raw[prot_name][entity_name].resistances[i].decrease)) end -- For debugging TODO: remove me
+
         end
     end
 end
 
 local ModifyResistances = function()
     for _, tbl in pairs(building_types) do
+
         if tbl[2] then -- combat building
             -- TODO: prototype later
         else
@@ -144,6 +146,7 @@ local ModifyResistances = function()
                 UpdateResistanceTable(tbl[1], k)
                 --log("\\END BLOCK")   -- For debugging TODO: remove me
             end
+
         end
     end
 end
