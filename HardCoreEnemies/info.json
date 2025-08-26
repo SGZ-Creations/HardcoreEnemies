@@ -1,0 +1,18 @@
+{
+	"name": "HardCoreEnemies",
+	"title": "HardCoreEnemies",
+	"author": "SGZ_Creations, TheXRify",
+	"homepage": "https://github.com/SGZ-Creations/HardcoreEnemies", 
+	"factorio_version": "2.0",
+	"version": "0.1.1",
+	"dependencies": [
+		"base", 
+		"? Power-Armour-Replacer >= 0.3",
+		"? space-age"
+	],
+	"description": "* The DamageMultiplier startup setting controls how much damage the ENEMY ENTITY will do towards player & buildings.\n\n* The ResistanceMultiplier startup setting controls how much resistances are applied to buildings\n\n* The CombatResistanceMultiplier startup setting controls how much resistances combat buildings get as opposed to regular buildings",
+	"package": {
+		"ignore": [
+		]
+	}
+}
