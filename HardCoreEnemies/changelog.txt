@@ -1,9 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.1
+Date: 26.08.2025
+  Bugfixes:
+    - Fixed packaging tool kit.
+---------------------------------------------------------------------------------------------------
 Version: 0.1.0
 Date: 26.08.2025
   Features:
     - Enemy entity Damage Multiplication function 4 HardCoreEnemies
     - Resistances
   Credits:
-    - THanks @MetroidManiax For his input on creating the lib & multiplication function.
+    - Thanks @MetroidManiax For his input on creating the lib & multiplication function.
     - Thanks @Kyber For Writing the ModifyResistances code.
