@@ -1,5 +1,9 @@
--- Rify, 22:14 8.18.2025
+-- Rify: 20:33 8.18.2025
+--[[
+    The ResistanceMultiplier startup setting controls how much resistances are applied to buildings
+]]
 
+-- Rify, 22:14 8.18.2025
 --[[
     items are stored as their type and if they're a combat building
     true for combat building, false for regular building
@@ -7,7 +11,7 @@
     example entry(s)
     {"regular-building", false},
     {"combat-building", true}
-]] --
+]]
 
 local building_types = {
     { "accumulator",               false },
@@ -116,7 +120,7 @@ local UpdateResistanceTable = function(prot_name, entity_name)
             local old_decrease = resist_tbl[i].decrease -- for logging, TODO: remove me
 
             -- begin stupid fucking formatter
-            data.raw[prot_name][entity_name].resistances[i].decrease = resist_tbl[i].decrease *
+            data.raw[prot_name][entity_name].resistances[i].decrease = resist_tbl[i].decrease * --Was told this does not work
                 settings.startup["ResistanceMultiplier"]
                 .value -- modify the existing decrease value
             -- end stupid fucking formatter

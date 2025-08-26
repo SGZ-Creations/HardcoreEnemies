@@ -1,2 +1,2 @@
-require("Enemies.ObjectResitances")
+require("Functions.ModifyResistances")
 require("Functions.Damages")
