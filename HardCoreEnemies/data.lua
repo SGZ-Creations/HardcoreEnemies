@@ -1,3 +1,2 @@
-require("Enemies.DamageOutput")
-require("Enemies.ObjectResitances")
-require("Functions.Function")
+require("Functions.ModifyResistances")
+require("Functions.Damages")

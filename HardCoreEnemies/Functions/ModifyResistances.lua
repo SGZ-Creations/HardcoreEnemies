@@ -1,7 +1,9 @@
+-- Rify: 20:33 8.18.2025
+--[[
+    The ResistanceMultiplier startup setting controls how much resistances are applied to buildings
+]]
+
 -- Rify, 22:14 8.18.2025
-
-require("Functions.Shorthands")
-
 --[[
     items are stored as their type and if they're a combat building
     true for combat building, false for regular building
@@ -9,7 +11,7 @@ require("Functions.Shorthands")
     example entry(s)
     {"regular-building", false},
     {"combat-building", true}
-]] --
+]]
 
 local building_types = {
     { "accumulator",               false },
@@ -113,35 +115,59 @@ local UpdateResistanceTable = function(prot_name, entity_name, setting_value)
 
     -- loop through the resistances table
     for i, _ in pairs(resist_tbl) do
-        -- check if .decrease exists for the resitance table, if it doesn't do nothing
+        -- check if .decrease exists for the resitance table, if it doesn't d̶o̶ n̶o̶t̶h̶i̶n̶g̶ Add value 25 or 100 to resistances. for combat 100 for regular 25 for all damage types See List In bottom of file
         if resist_tbl[i].decrease then
-            -- modify the existing decrease value
-            log("\t\\Old Decrease: " .. tostring(resist_tbl[i].decrease))
-            data.raw[prot_name][entity_name].resistances[i].decrease = resist_tbl[i].decrease * setting_value
-            log("\t\\New Decrease: " .. tostring(data.raw[prot_name][entity_name].resistances[i].decrease))
+            local old_decrease = resist_tbl[i].decrease -- for logging, TODO: remove me
+
+            -- begin stupid fucking formatter
+            data.raw[prot_name][entity_name].resistances[i].decrease = resist_tbl[i].decrease * --Was told this does not work
+                settings.startup["ResistanceMultiplier"]
+                    .value -- modify the existing decrease value
+            -- end stupid fucking formatter
+
+            -- settings.startup["old_decrease"].value then log("\t\t\\Beginning Decrease: " .. tostring(old_decrease)) end                                       -- For debugging TODO: remove me
+            -- settings.startup["decrease"].value then log("\t\t\\Ending Decrease: " .. tostring(data.raw[prot_name][entity_name].resistances[i].decrease)) end -- For debugging TODO: remove me
+
         end
     end
 end
 
 local ModifyResistances = function()
     for _, tbl in pairs(building_types) do
-        local prototype_name = tbl[1]
-        local is_combat_building = tbl[2]
-        local setting_name = "ResistanceMultiplier"
-        if is_combat_building then
-            setting_name = "CombatResistanceMultiplier"
-        end
-        local setting_value = settings.startup[setting_name].value
 
-        for k, _ in pairs(data.raw[prototype_name]) do
-            data.raw[prototype_name][k].hide_resistances = false
+        if tbl[2] then -- combat building
+            -- TODO: prototype later
+        else
+            --log(tbl[1])
+            for k, _ in pairs(data.raw[tbl[1]]) do
+                data.raw[tbl[1]][k].hide_resistances = false
+                --log("\\BLOCK START") -- For debugging TODO: remove me
+                --log("\t\\" .. k)     -- For debugging TODO: remove me
+                UpdateResistanceTable(tbl[1], k)
+                --log("\\END BLOCK")   -- For debugging TODO: remove me
+            end
 
-            log("\\BLOCK START") -- For debugging TODO: remove me
-            log("\t\\" .. k)     -- For debugging TODO: remove me
-            UpdateResistanceTable(prototype_name, k, setting_value)
-            log("\\END BLOCK")   -- For debugging TODO: remove me
         end
     end
 end
 
 return ModifyResistances
+
+
+--[[
+the List
+{
+    "physical", 
+    "acid",
+    "explosion",
+    type = "fire",
+    type = "electric",
+    type = "impact",
+    type = "laser",
+    type = "poison",
+
+    if mods["bobenemies"] then
+        type = "bob-plasma",
+        type = "bob-pierce",
+    end
+]]
