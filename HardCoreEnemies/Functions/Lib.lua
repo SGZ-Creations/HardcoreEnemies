@@ -1,3 +1,5 @@
+--By @MetroidManiax
+
 local lib = {}
 require "util"
 ---Recursively applies a function to all non-table values in a table.

@@ -1,3 +1,5 @@
+--By @MetroidManiax with Sgamez
+
 ---@class LuaSettings 
 local SS = settings.startup
 
@@ -16,7 +18,7 @@ local function damage_update(current_path, key, value)
         return value * SS["DamageMultiplier"].value
     end
     if #current_path >= 2 and (current_path[#current_path - 1] == "action_delivery" or type(current_path[#current_path - 1]) == "number") and (key == "projectile" or key == "stream") then
-		log(table.concat(current_path, "."))
+		if SS["Debug"].value then log(table.concat(current_path, ".")) end
         to_adjust[value] = true
     end
     return value
@@ -47,7 +49,6 @@ end
 for _, prototypes in pairs({data.raw["unit"], data.raw["spider-unit"], data.raw["turret"]}) do
 	for k, p in pairs(prototypes) do
 		if string.sub(k, -6) == "-biter" or string.sub(k, -8) == "-spitter"  or string.sub(k, -9) == "-pentapod" or string.sub(k, -10) == "-premature" or string.sub(k, -7) == "-turret" then
-			--log(k)
 			if SS["Debug"].value then log("searching " .. k) end
 			lib.apply_to_table_with_path(p, damage_update)
 		end
