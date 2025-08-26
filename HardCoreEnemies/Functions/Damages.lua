@@ -41,7 +41,6 @@ local function rec_damage_update()
                 lib.apply_to_table_with_path(prot, damage_update)
             end
         end
-
         rec_damage_update()
     end
 end
