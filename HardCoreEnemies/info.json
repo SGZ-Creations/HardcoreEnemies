@@ -4,7 +4,7 @@
 	"author": "SGZ_Creations, TheXRify",
 	"homepage": "https://github.com/SGZ-Creations/HardcoreEnemies", 
 	"factorio_version": "2.0",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"dependencies": [
 		"base", 
 		"? Power-Armour-Replacer >= 0.3",
