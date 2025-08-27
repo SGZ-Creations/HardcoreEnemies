@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 27.08.2025
+  Features:
+    - Initial Release.
+    - Mod should now be feature complete.
+  Credits:
+    - Thanks @MetroidManiax For his input on creating the lib & multiplication function.
+    - Thanks @Kyber For Writing the ModifyResistances code.
+---------------------------------------------------------------------------------------------------
 Version: 0.1.1
 Date: 26.08.2025
   Bugfixes:

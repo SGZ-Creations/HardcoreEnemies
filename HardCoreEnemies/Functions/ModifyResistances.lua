@@ -12,7 +12,6 @@
 
 local building_types = {
     { "accumulator",               false },
-    { "artillery-turret",          true },
     { "beacon",                    false },
     { "boiler",                    false },
     { "arithmetic-combinator",     false },
@@ -32,7 +31,6 @@ local building_types = {
     { "combat-robot",              false },
     { "construction-robot",        false },
     { "logistic-robot",            false },
-    { "gate",                      true },
     { "generator",                 false },
     { "heat-interface",            false },
     { "heat-pipe",                 false },
@@ -63,7 +61,6 @@ local building_types = {
     { "reactor",                   false },
     { "roboport",                  false },
     { "solar-panel",               false },
-    { "spider-leg",                true },
     { "storage-tank",              false },
     { "train-stop",                false },
     { "lane-splitter",             false },
@@ -71,21 +68,24 @@ local building_types = {
     { "splitter",                  false },
     { "transport-belt",            false },
     { "underground-belt",          false },
-    { "turret",                    true },
-    { "ammo-turret",               true },
-    { "electric-turret",           true },
-    { "fluid-turret",              true },
     { "valve",                     false },
-    { "car",                       true },
-    { "artillery-wagon",           true },
     { "cargo-wagon",               false },
     { "infinity-cargo-wagon",      false },
     { "fluid-wagon",               false },
+    { "artillery-turret",          true },
+    { "ammo-turret",               true },
+    { "electric-turret",           true },
+    { "fluid-turret",              true },
+    { "spider-leg",                true },
+    { "car",                       true },
+    { "artillery-wagon",           true },
     { "locomotive",                true },
     { "spider-vehicle",            true },
-    { "wall",                      false },
-    { "fish",                      false },
-    { "tree",                      false },
+    { "wall",                      true },
+    { "gate",                      true },
+    --{ "turret",                    false },Worms not the player turret.
+    --{ "fish",                      false },Why? Not seeing fishes being attacked.
+    --{ "tree",                      false },--Should be vanilla. 4 those who hate trees & don't want them. Tho i suppose this can be reverted after some testing 
 }
 
 local damage_types = {
@@ -105,20 +105,23 @@ if mods['bobenemies'] then
 end
 
 if mods['space-age'] then -- add capability with space age shit
-    table.insert(building_types, { "space-platform-hub", false })
-    table.insert(building_types, { "thruster", false })
-    table.insert(building_types, { "rail-support", true })
+    table.insert(building_types, { "cargo-pod", false })
+    table.insert(building_types, { "cargo-landing-pad", false })
+    table.insert(building_types, { "agricultural-tower", false })
+    table.insert(building_types, { "capture-robot", true })
+    table.insert(building_types, { "plant", false })
+    table.insert(building_types, { "cargo-bay", false })
+    --table.insert(building_types, { "space-platform-hub", false })Space object
+    --table.insert(building_types, { "thruster", false })Space object
+    --table.insert(building_types, { "asteroid-collector", false })Space object
+end
+if mods['elevated-rails'] then -- add capability with space age shit
+    table.insert(building_types, { "rail-support", false })
+    table.insert(building_types, { "rail-ramp", false })
     table.insert(building_types, { "elevated-straight-rail", false })
     table.insert(building_types, { "elevated-half-diagonal-rail", false })
     table.insert(building_types, { "elevated-curved-rail-b", false })
     table.insert(building_types, { "elevated-curved-rail-a", false })
-    table.insert(building_types, { "cargo-pod", false })
-    table.insert(building_types, { "cargo-landing-pad", false })
-    table.insert(building_types, { "asteroid-collector", false })
-    table.insert(building_types, { "agricultural-tower", false })
-    table.insert(building_types, { "cargo-bay", false })
-    table.insert(building_types, { "capture-robot", false })
-    table.insert(building_types, { "plant", false })
 end
 
 local AddResistances = function(resistances)
@@ -168,8 +171,6 @@ end
 local UpdateResistanceTable = function(prot_name, entity_name, setting_value, is_combat_building)
     local prototype = data.raw[prot_name][entity_name]
     local resist_tbl = prototype.resistances or {}
-    -- do nothing if the resistance table doesn't exist
-    if not resist_tbl then return end
 
     -- add the new resistance types
     resist_tbl = AddResistances(resist_tbl)
