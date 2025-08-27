@@ -9,7 +9,6 @@
     {"combat-building", true}
 ]] --
 
-
 local building_types = {
     { "accumulator",               false },
     { "beacon",                    false },
@@ -83,9 +82,6 @@ local building_types = {
     { "spider-vehicle",            true },
     { "wall",                      true },
     { "gate",                      true },
-    --{ "turret",                    false },Worms not the player turret.
-    --{ "fish",                      false },Why? Not seeing fishes being attacked.
-    --{ "tree",                      false },--Should be vanilla. 4 those who hate trees & don't want them. Tho i suppose this can be reverted after some testing 
 }
 
 local damage_types = {
@@ -177,8 +173,8 @@ local UpdateResistanceTable = function(prot_name, entity_name, setting_value, is
 
     -- loop through the resistances table
     for i, _ in pairs(resist_tbl) do
-        if resist_tbl[i].decrease then
-        else
+        -- add the decrease for a damage type if it doesn't exist
+        if not resist_tbl[i].decrease then
             if is_combat_building then
                 resist_tbl[i].decrease = 100
             else
@@ -186,9 +182,11 @@ local UpdateResistanceTable = function(prot_name, entity_name, setting_value, is
             end
         end
 
+        -- increase the decrease value by the proper setting value
         resist_tbl[i].decrease = resist_tbl[i].decrease * setting_value
+
         prototype.resistances = resist_tbl
-        data.raw[prot_name][entity_name] = prototype
+        data.raw[prot_name][entity_name] = prototype -- update data.raw with the new prototype
     end
 end
 
@@ -205,7 +203,9 @@ local ModifyResistances = function()
         for k, _ in pairs(data.raw[prototype_name]) do
             data.raw[prototype_name][k].hide_resistances = false
 
-            UpdateResistanceTable(prototype_name, k, setting_value, is_combat_building)
+            if k ~= "underground-belt" then -- weird bugfix where underground-belt (the yellow one) would become 250,000 instead of 2500
+                UpdateResistanceTable(prototype_name, k, setting_value, is_combat_building)
+            end
         end
     end
 end
