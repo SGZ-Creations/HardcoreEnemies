@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+Date: 30.8.2025
+  Changes:
+    - All damage types from all mods supported
+  Bugfixes:
+    - Fixed incompatibility issues with Rampant Arsenal Fork
+---------------------------------------------------------------------------------------------------
 Version: 1.0.1
 Date: 27.08.2025
   Bugfixes:
