@@ -186,3 +186,5 @@ local ModifyResistances = function()
 end
 
 ModifyResistances()
+
+return UpdateResistanceTable -- for updating resistances modified by other mods
