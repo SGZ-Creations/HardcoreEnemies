@@ -84,22 +84,6 @@ local building_types = {
     { "gate",                      true },
 }
 
-local damage_types = {
-    "physical",
-    "acid",
-    "explosion",
-    "fire",
-    "electric",
-    "impact",
-    "laser",
-    "poison"
-}
-
-if mods['bobenemies'] then
-    table.insert(damage_types, "bob-plasma")
-    table.insert(damage_types, "bob-pierce")
-end
-
 if mods['space-age'] then -- add capability with space age shit
     table.insert(building_types, { "cargo-pod", false })
     table.insert(building_types, { "cargo-landing-pad", false })
@@ -121,21 +105,12 @@ if mods['elevated-rails'] then -- add capability with space age shit
 end
 
 local AddResistances = function(resistances)
-    local truth_table = {
-        physical = false,
-        acid = false,
-        explosion = false,
-        fire = false,
-        electric = false,
-        impact = false,
-        laser = false,
-        poison = false
-    }
+    local truth_table = {}
+    local damage_types = {}
 
-    -- TODO: find a better way to introduce mod compatibility with the truth table
-    if mods['bobenemies'] then
-        truth_table["bob-plasma"] = false
-        truth_table["bob-pierce"] = false
+    for _, v in pairs(data.raw["damage-type"]) do
+        truth_table[v.name] = false
+        table.insert(damage_types, v)
     end
 
     if #resistances > 0 then
