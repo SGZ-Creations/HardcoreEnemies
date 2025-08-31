@@ -106,9 +106,9 @@ local ModifyResistances = function()
         for prot_name, prot in pairs(prot_cat) do
             if not prot.flags then goto continue end -- do nothing if the prot.flags doesn't exist
 
-            -- if the prototype contains these flags, we should continue
-            if _find_table_value(prot.flags, "player-creation") or _find_table_value(prot.flags, "placeable-player") then
-                if _find_table_value(combat_buildings, prot_name) then -- check if its a combat building
+            -- make sure we're messing with a player-creation building
+            if _find_table_value(prot.flags, "player-creation") then
+                if _find_table_value(combat_buildings, prot_cat_name) then -- check if its a combat building
                     setting_name = "CombatResistanceMultiplier"
                     is_combat_building = true
                 end
