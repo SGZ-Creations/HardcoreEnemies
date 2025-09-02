@@ -17,7 +17,7 @@ local function damage_update(current_path, key, value)
 		if SS["Debug"].value then log("updating damage to " .. (value * SS["DamageMultiplier"].value)) end
         return value * SS["DamageMultiplier"].value
     end
-    if #current_path >= 2 and (current_path[#current_path - 1] == "action_delivery" or type(current_path[#current_path - 1]) == "number") and (key == "projectile" or key == "stream") then
+    if #current_path >= 2 and (current_path[#current_path - 1] == "action_delivery" or type(current_path[#current_path - 1]) == "number") and (key == "projectile" or key == "stream" or key == "beam") then
 		if SS["Debug"].value then log(table.concat(current_path, ".")) end
         to_adjust[value] = true
     end
@@ -33,11 +33,11 @@ local function rec_damage_update()
     if next(to_adjust) then
         for prot_name, _ in pairs(to_adjust) do
             to_adjust[prot_name] = nil
-            local prot = data.raw["projectile"][prot_name] or data.raw["stream"][prot_name]
+            local prot = data.raw["projectile"][prot_name] or data.raw["stream"][prot_name] or data.raw["beam"][prot_name]
             if prot and not visited[prot_name] then
 				visited[prot_name] = true
-				if SS["SearchingDebug"].value then log("searching " .. prot_name) end
-				if SS["VisitedDebug"].value then log("visited " .. tostring(visited[prot_name])) end
+				if SS["SearchingDebug"].value then log("searching:" .. prot_name) end
+				if SS["VisitedDebug"].value then log("visited:" .. tostring(visited[prot_name])) end
                 lib.apply_to_table_with_path(prot, damage_update)
             end
         end
@@ -47,7 +47,7 @@ end
 
 for _, prototypes in pairs({data.raw["unit"], data.raw["spider-unit"], data.raw["turret"]}) do
 	for k, p in pairs(prototypes) do
-		if string.sub(k, -6) == "-biter" or string.sub(k, -8) == "-spitter"  or string.sub(k, -9) == "-pentapod" or string.sub(k, -10) == "-premature" or string.sub(k, -7) == "-turret" then
+		if string.sub(k, -6) == "-biter" or string.sub(k, -8) == "-spitter"  or string.sub(k, -9) == "-pentapod" or string.sub(k, -10) == "-premature" or string.sub(k, -7) == "-turret" or string.sub(k, -10) == "-jellyfish" or string.sub(k, -4) == "-bot" then
 			if SS["Debug"].value then log("searching " .. k) end
 			lib.apply_to_table_with_path(p, damage_update)
 		end

@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.4
 Date: 31.8.2025
+  Features:
+    - Added Enemy unit from metal & stars.
   Bugfixes:
     - Fixed biters getting resistances applied to them
     - Fixed most combat buildings not working right
