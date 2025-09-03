@@ -1,5 +1,8 @@
 -- Rify, 22:14 8.18.2025
 
+local COMBAT_DECREASE = 100
+local NORMAL_DECREASE = 25
+
 local combat_buildings = {
     ["artillery-turret"] = true,
     ["ammo-turret"] = true,
@@ -12,6 +15,10 @@ local combat_buildings = {
     ["spider-vehicle"] = true,
     ["wall"] = true,
     ["gate"] = true
+}
+
+local inflate_resistance_to_damage_type = {
+    ["stone-wall"] = { type = "physical", decrease = COMBAT_DECREASE }
 }
 
 -- helper function for ModifyResistances
@@ -34,9 +41,9 @@ local function UpdateResistanceTable(prototype, setting_value, is_combat_buildin
     for _, resistance in pairs(resistances) do
         if not resistance.decrease then
             if is_combat_building then
-                resistance.decrease = 100
+                resistance.decrease = COMBAT_DECREASE
             else
-                resistance.decrease = 25
+                resistance.decrease = NORMAL_DECREASE
             end
         end
 
@@ -68,6 +75,18 @@ local function AddNewDamageTypes(prototype, is_combat_building)
     return resistances
 end
 
+local function InflateResistanceToDamageType(prototype)
+    for k, v in pairs(inflate_resistance_to_damage_type) do
+        if k == prototype.name then
+            for _, resistance in pairs(prototype.resistances) do
+                if resistance.type == v.type then
+                    resistance.decrease = v.decrease
+                end
+            end
+        end
+    end
+end
+
 local function ModifyResistances()
     local setting_name = "ResistanceMultiplier"
     local setting_value = nil
@@ -89,6 +108,7 @@ local function ModifyResistances()
                     prot.resistances = AddNewDamageTypes(prot, is_combat_building)
 
                     if prot.name ~= "underground-belt" then
+                        InflateResistanceToDamageType(prot)
                         UpdateResistanceTable(prot, setting_value, is_combat_building)
                     end
                 end
