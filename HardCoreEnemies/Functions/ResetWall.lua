@@ -1,5 +1,3 @@
-local UpdateResistanceTable = require("Functions.ModifyResistances")
-
 if mods['RampantArsenalFork'] then
     -- reset the resistances for walls
     data.raw.wall["stone-wall"].resistances = {
@@ -31,6 +29,4 @@ if mods['RampantArsenalFork'] then
             percent = 70
         }
     }
-
-    UpdateResistanceTable("wall", "stone-wall", settings.startup["CombatResistanceMultiplier"].value, true)
 end
