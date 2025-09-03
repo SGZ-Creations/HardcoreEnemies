@@ -6,6 +6,7 @@ Date: 31.8.2025
   Bugfixes:
     - Fixed biters getting resistances applied to them
     - Fixed most combat buildings not working right
+    - Fixed percentage resistance values being overridden to zero
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.3
 Date: 31.8.2025
